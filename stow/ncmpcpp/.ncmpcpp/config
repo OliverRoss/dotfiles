@@ -1,0 +1,6 @@
+ncmpcpp_directory =   "~/.ncmpcpp"
+mpd_host =            "localhost"
+mpd_port =            "6600"	
+mpd_music_dir =       "/home/oliver/Oliver/Musik"
+external_editor =     "vim"
+incremental_seeking = "yes"

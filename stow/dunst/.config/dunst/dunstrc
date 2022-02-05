@@ -1,0 +1,19 @@
+[global]
+    show_age_threshold = -1
+    font = DejaVuSans Mono Nerd Font 9
+    format = "<b>%s</b>\n%b"
+[urgency_low]
+    background = "#073642"
+    foreground = "#657b83"
+    frame_color = "#93a1a1"
+    timeout = 10
+[urgency_normal]
+    background = "#073642"
+    foreground = "#eee8d5"
+    frame_color = "#93a1a1"
+    timeout = 10
+[urgency_critical]
+    background = "#073642"
+    foreground = "#fdf6e3"
+    frame_color = "#dc322f"
+    timeout = 0

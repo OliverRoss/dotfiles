@@ -1,0 +1,75 @@
+// cspell:disable
+{
+	"clangd.semanticHighlighting": true,
+	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+	"languageserver": {
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": ["~"]
+		}
+	},
+	"snippets.userSnippetsDirectory":"~/.dotfiles/snippets",
+	"snippets.autoTrigger": "true",
+	"texlab.latexindent.modifyLineBreaks":true,
+	"texlab.formatterLineLength":80, 
+	"texlab.latexFormatter": "latexindent",
+	"texlab.latexindent.local": null,
+	"cSpell.enabled": false,
+	"cSpell.language": "en",
+	"cSpell.enabledLanguageIds": [
+	"asciidoc",
+	"c",
+	"cpp",
+	"en",
+	"git-commit",
+	"go",
+	"haskell",
+	"html",
+	"java",
+	"javascript",
+	"javascriptreact",
+	"json",
+	"jsonc",
+	"tex",
+	"less",
+	"markdown",
+	"php",
+	"plaintext",
+	"pug",
+	"restructuredtext",
+	"rust",
+	"scss",
+	"text",
+	"vim",
+	"yaml",
+	"yml"
+	],
+	"cSpell.userWords": [
+		"Diffie",
+		"ciphertext",
+		"loopix",
+		"microblogging",
+		"mixnet",
+		"unpause"
+	],
+	"pyright.enable":true, 						//Enable coc-pyright extension 	
+	"python.analysis.autoImportCompletions":true,			//Determines whether pyright offers auto-import completions 
+	"python.analysis.autoSearchPaths":true,				//Automatically add common search paths like 'src' 
+	"python.analysis.diagnosticMode":"openFilesOnly",		//Analyzes and reports errors for open only or all files in workspace 
+	"python.analysis.stubPath":"typings",				//Path to directory containing custom type stub files 
+	"python.analysis.typeshedPaths":[],				//Paths to look for typeshed modules 
+	"python.analysis.diagnosticSeverityOverrides":{},		//Override the severity levels for individual diagnostics 
+	"python.analysis.typeCheckingMode":"off",			//Defines the default rule set for type checking 
+	"python.analysis.useLibraryCodeForTypes":true,			//Use library implementations to extract type information 
+	"python.pythonPath":"python3",					//Path to Python 
+	"python.venvPath":"./.venv",					//Path to folder with a list of Virtual Environments 
+	"python.formatting.provider":"autopep8",			//Provider for formatting 
+	"python.linting.enabled":true,					//Whether to lint Python files 
+	"python.linting.flake8Enabled":false,				//Whether to lint with flake8 
+	"pyright.disableDiagnostics":false,				//Disable diagnostics from Pyright 
+	"pyright.completion.snippetSupport":true,			//Enable completion snippets support 
+	"pyright.organizeimports.provider":"isort",			//Organize imports provider, pyright or isort 
+	"python.sortImports.path":"isort",				//Path to isort script, default using inner version
+}

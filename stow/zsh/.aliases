@@ -1,0 +1,41 @@
+# | ------------------------------------------------------------------------- |
+# |               MY ALIASES (Works in Bash and Zsh)                          |
+# | ------------------------------------------------------------------------- |
+
+
+alias cal='rofi -show calc -modi "calc:qalc +u8 -nocurrencies"'
+alias c="clear"
+alias decrypt="tomb open ~/Oliver/Crypt/crypt.tomb -k ~/Oliver/Crypt/crypt.tomb.key ~/Oliver/Crypt/Tomb && cd ~/Oliver/Crypt/Tomb"
+alias ec='~/.dotfiles/scripts/edit_config.sh'
+alias encrypt="cd ~/Oliver && sudo tomb close crypt"
+alias exifremovedir='exiftool -recurse -overwrite_original -all='
+alias exifremove='exiftool -overwrite_original -all='
+alias fail='LD_PRELOAD=/usr/local/lib/mallocfail.so'
+alias fd='fd -H'
+alias fzf='fzf --height=40% --border --margin=1 --padding=1'
+alias g='clear && git status'
+alias gg='git graph'
+alias h='~/.dotfiles/scripts/screenlayout.sh hdmi'
+alias lh='~/.dotfiles/scripts/screenlayout.sh laptop_hdmi'
+alias l="'ls' --group-directories-first --color=auto -hAlF"
+alias lo='~/.dotfiles/scripts/screenlayout.sh laptop'
+alias ls='ls -1 --group-directories-first --color=auto'
+alias lv='~/.dotfiles/scripts/screenlayout.sh laptop_vga'
+alias m='ncmpcpp'
+alias o='xdg-open'
+alias s='sxiv -b'
+alias su='su -l'
+alias sudo='sudo -v; sudo'
+alias tk='clear; task'
+alias tmux="tmux -2"
+alias tree='tree --dirsfirst -a'
+alias v='~/.dotfiles/scripts/screenlayout.sh vga'
+alias ve="source .venv/bin/activate"
+alias vim='nvim'
+alias z='mupdf'
+
+# List installed packages with fzf preview
+alias pacman_preview='pacman -Qq | fzf --preview "pacman -Qil {}" --layout=reverse --bind "enter:execute(pacman -Qil {} | less)"'
+# Mark package as explicitely installed only in the database without
+# reinstallation
+alias pacman_mark_explicit='pacman -D --asexplicit'

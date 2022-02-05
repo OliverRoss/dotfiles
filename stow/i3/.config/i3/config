@@ -1,0 +1,255 @@
+#------------------------------------------------------------#
+#                    Base config                             #
+#------------------------------------------------------------#
+
+# Mofifier key. Mod4 = Linux/Win key
+set $mod Mod4
+
+# don't follow mouse with focus
+focus_follows_mouse no
+
+# focus shouldn't wrap around container edges
+focus_wrapping no
+# Automatically switch to urgent (and thus also new) windows
+for_window [urgent="latest"] focus
+# Automatically switch to tmux windows when they update 
+for_window [title="tmux"] focus
+focus_on_window_activation focus
+
+# display urgency hints longer
+force_display_urgency_hint 500 ms
+
+# border size of all windows 
+for_window [class=".*"] border pixel 0
+
+# gap widths between windows
+gaps inner 10
+
+# gap widths to screen edge 
+gaps outer 20
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#------------------------------------------------------------#
+#                    Appearance                              #
+#------------------------------------------------------------#
+
+# solarized colours
+# child_border + indicator is the color of window borders 
+# class                 border  bground text    indicator child_border
+client.focused          #002B36	#002B36 #cb4b16 #2aa198   #2aa198
+client.focused_inactive #002B36	#002B36 #93a1a1 #657b83   #657b83
+client.unfocused        #002B36	#002B36 #93a1a1 #657b83   #657b83
+client.urgent          #d33682	#002B36 #d33682 #859900   #dc322f
+client.placeholder      #859900	#002B36 #EEE8D5 #073642   #073642
+client.background       #EEE8D5
+
+# Font for window titles
+font pango:monospace 11
+
+#------------------------------------------------------------#
+#                    Windows + Workspaces                    #
+#------------------------------------------------------------#
+
+
+# custom variables for workspaces
+set $ws1 "1:home"
+set $ws2 "2:tmux"
+set $ws3 "3:vm"
+set $ws4 "4:mail"
+set $ws5 "5:music"
+set $ws6 "6:web"
+set $ws7 "7:files"
+set $ws8 "8:con"
+set $ws9 "9:sig"
+set $ws10 "10:tmp"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+# resize window 
+mode "resize" {
+
+	# vim bindings for resizing
+        bindsym l resize shrink width 1 px or 1 ppt
+        bindsym k resize grow height 1 px or 1 ppt
+        bindsym j resize shrink height 1 px or 1 ppt
+        bindsym h resize grow width 1 px or 1 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+bindsym $mod+p exec polybar-msg cmd toggle
+
+# Assign windows to workspaces
+assign [class="firefox"] $ws6
+assign [class="qutebrowser"] $ws6
+assign [class="Thunderbird"] $ws4
+assign [class="Signal"] $ws9
+assign [class="Mixxx"] $ws5
+assign [class="Thunar"] $ws7
+
+assign [title="ranger"] $ws7
+assign [title=".*config.*"] $ws8
+assign [title=".*rpg.*"] $ws2
+assign [title=".*crypt.*"] $ws2
+assign [title=".*infosec.*"] $ws2
+assign [title=".*home.*"] $ws1
+assign [title="ncmpcpp"] $ws5
+
+#------------------------------------------------------------#
+#                    Shortcuts - Basics                      #
+#------------------------------------------------------------#
+
+# Switch between workspaces
+bindsym $mod+m workspace prev
+bindsym $mod+comma workspace next
+
+# Change focus + move window
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym Ctrl+Mod1+Down kill
+bindsym Ctrl+Mod1+f exec xdotool mousemove 30 10
+bindsym Ctrl+Mod1+Shift+f exec xdotool mousemove 1040 10
+bindsym Ctrl+Mod1+Up fullscreen toggle
+# Start app
+bindsym $mod+i exec "rofi -show drun"
+# Terminal
+bindsym $mod+Return exec xfce4-terminal
+# Dock current window
+bindsym $mod+t exec kdocker -f
+
+# Splitting
+bindsym $mod+Shift+v split h
+bindsym $mod+v split v
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes' 'i3-msg exit'"
+
+#------------------------------------------------------------#
+#                    Archive                                 #
+#------------------------------------------------------------#
+
+# Blue Layer
+	# Right half, upper left button: alt+shift+u
+bindsym Mod1+Shift+u exec passmenu --otp
+# Blue Layer
+	# Left half, upper right button: meta+shift+w
+
+# Green layer, leftest row: top, middle,middle-bottom, bottom
+bindsym Ctrl+Mod1+w exec mpc pause
+bindsym Ctrl+Mod1+q exec mpc play
+bindsym Ctrl+Mod1+d exec mpc stop
+
+# bindsym $mod+Shift+s exec ~/.dotfiles/scripts/launch_tmux_shortcut.sh s launch
+# bindsym $mod+Shift+e exec ~/.dotfiles/scripts/launch_tmux_shortcut.sh e launch
+
+#------------------------------------------------------------#
+#                    Shortcuts - Scripts                     #
+#------------------------------------------------------------#
+
+# Green Layer 
+	# Left half: Upper big button
+	bindsym Ctrl+Mod1+n exec ~/.dotfiles/scripts/safety_switch.sh --checkin
+	# Right halt: Upper left "screenshot" button
+	bindsym Ctrl+Mod1+a exec passmenu
+	# Left half: Upper right button
+	bindsym Ctrl+Mod1+e --release exec "dunstctl set-paused true; slock; touch /tmp/session_age; dunstctl set-paused false"
+
+# Base Layer
+	# Upper left "screenshot" button
+	bindsym Ctrl+$mod+n exec ~/.dotfiles/scripts/ocr.sh
+
+# Other
+bindsym $mod+c exec ~/.dotfiles/scripts/start_browser.sh&
+bindsym $mod+a exec ~/.dotfiles/scripts/autotype.sh
+bindsym $mod+Mod1+1 exec ~/.dotfiles/scripts/autotype.sh mail
+bindsym $mod+Mod1+2 exec ~/.dotfiles/scripts/autotype.sh phone
+bindsym $mod+Mod1+3 exec ~/.dotfiles/scripts/autotype.sh address
+bindsym $mod+Mod1+4 exec ~/.dotfiles/scripts/autotype.sh name
+bindsym $mod+Mod1+5 exec ~/.dotfiles/scripts/autotype.sh help
+
+bindsym $mod+d exec  "dunstctl close"
+bindsym $mod+f exec rofimoji
+bindsym Ctrl+$mod+u exec /home/oliver/.dotfiles/scripts/toggle_mullvad.sh
+bindsym $mod+b exec rofi -show calc -modi "calc:qalc +u8 -nocurrencies"
+bindsym $mod+Shift+w exec ~/.dotfiles/scripts/toggle_tomb.sh
+# Tmux
+bindsym $mod+Shift+i exec ~/.dotfiles/scripts/launch_tmux_shortcut.sh i launch
+bindsym $mod+Shift+c exec ~/.dotfiles/scripts/launch_tmux_shortcut.sh config launch
+bindsym $mod+Shift+n exec ~/.dotfiles/scripts/launch_tmux_shortcut.sh n launch
+
+#------------------------------------------------------------#
+#                    Startup                                 #
+#------------------------------------------------------------#
+
+# Startup stuff
+exec --no-startup-id unclutter --timeout 2
+exec mullvad connect # VPN
+exec hsetroot -solid "#002b36" # Wallpaper
+exec setxkbmap de # Keyboard map
+exec dunst # Notification daemon
+exec brightnessctl --class=backlight set 100%
+exec /usr/bin/count_upgradable_packages&
+exec_always keynav&
+exec_always mpd
+exec_always picom -b
+
+# Touch file for my automatic logout system
+exec_always touch /tmp/session_age
+
+# Relaunch polybars
+exec_always ~/.dotfiles/scripts/launch_polybars.sh
+
+

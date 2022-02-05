@@ -1,0 +1,21 @@
+configuration 
+{
+	modi: "window,run,ssh,drun";
+	font: "DejaVuSansMono Nerd Font 12";
+	location: 2;
+	yoffset: 300;
+	fixed-num-lines: false;
+	disable-history: true;
+	sort: true;
+	sorting-method: "fzf";
+	matching: "fuzzy";
+} 
+window {
+	width: 35;
+	lines: 15;
+	columns: 1;
+	separator-style: "dash";
+	hide-scrollbar: true;
+}
+/* @theme "gruvbox-dark-hard.rasi" */
+@theme "my_solarized.rasi"

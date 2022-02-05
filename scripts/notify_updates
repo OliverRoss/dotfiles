@@ -1,0 +1,7 @@
+#!/bin/bash
+
+UPDATES=$(checkupdates)
+dunstify "Pacman updates" "$(echo "$UPDATES" | cut -d' ' -f1)"&
+echo "$UPDATES" | wc -l > /tmp/pacman_updates
+
+

@@ -1,0 +1,364 @@
+[colors]
+base03 = #002b36
+base02 = #073642
+base01 = #586e75 
+base00 = #657b83
+base0 = #839496
+base1 = #93a1a1
+base2 = #eee8d5
+base3 = #fdf6e3
+yellow = #b58900
+orange = #cb4b16
+red = #dc322f
+magenta = #d33682
+violet = #6c71c4
+blue = #268bd2
+cyan = #2aa198
+green = #859900
+transparent = #00000000
+
+; background = ${self.base03} 
+background = ${self.transparent}
+foreground = ${self.base0} 
+
+[bar/base]
+background = ${colors.background}
+foreground = ${colors.foreground}
+font-0 = DejaVuSansMono Nerd Font Mono:style=Book:size=13
+width = 100%
+height = 25
+wm-restack = i3
+cursor-click = pointer
+cursor-scroll = ns-resize
+padding-left = 1
+padding-right = 1
+border-size = 0
+enable-ipc = true
+fixed-center=true
+
+[bar/top_base]
+inherit = bar/base
+tray-position = left
+tray-padding = 12
+tray-scale = 1.2
+tray-detached = true
+modules-right = timer date time 
+modules-center = tmux_count
+modules-left = i3 system-usb-udev 
+
+[bar/bottom_base]
+inherit = bar/base
+bottom = true
+modules-left = pass tomb wlan vpn battery 
+modules-right = mpd sysstat
+modules-center = pulseaudio
+
+[bar/top_s]
+inherit = bar/top_base
+module-margin = 1
+padding-left = 20
+padding-right = 5
+modules-padding-right = 4
+
+[bar/top_big]
+inherit = bar/top_base
+module-margin = 1
+padding-left = 25
+padding-right = 5
+modules-padding-right = 4
+
+[bar/bottom_s]
+inherit = bar/bottom_base
+modules-left = pass_s tomb_s wlan_s vpn_s battery_s mpd_s
+modules-right = sysstat
+modules-center = pulseaudio
+fixed-center = false
+module-margin = 2
+padding-left = 2
+padding-right = 1
+
+[bar/bottom_big]
+inherit = bar/bottom_base
+module-margin = 3
+padding-left = 5
+padding-right = 3
+
+[module/sysstat]
+type = custom/script
+exec = ~/.dotfiles/scripts/sysstat.sh
+click-left = ~/.dotfiles/scripts/notify_updates
+
+tail = true
+
+[module/memory]
+type = internal/memory
+interval = 1
+;format = <label>  <bar-used> 
+format = <label> 
+label = Swap %percentage_swap_used%%   RAM %percentage_used%%
+bar-used-indicator =
+bar-used-width = 10
+bar-used-foreground-0 = ${colors.green}
+bar-used-foreground-1 = ${colors.green}
+bar-used-foreground-2 = ${colors.orange}
+bar-used-foreground-3 = ${colors.red}
+bar-used-fill = ❙
+bar-used-empty = -
+bar-used-empty-foreground = ${colors.base02}
+
+[module/cpu]
+type = internal/cpu
+interval = 1 
+;format = <label>  <bar-load>
+format = <label> 
+
+label = CPU %percentage:2%%
+
+bar-load-indicator =
+bar-load-width = 10
+bar-load-foreground-0 = ${colors.green}
+bar-load-foreground-1 = ${colors.green}
+bar-load-foreground-2 = ${colors.orange}
+bar-load-foreground-3 = ${colors.red}
+bar-load-fill = ❙
+bar-load-empty = -
+bar-load-empty-foreground = ${colors.base02}
+
+[module/system-usb-udev]
+type = custom/script
+interval = 1
+exec = ~/.config/polybar/system-usb-udev.sh
+click-left = ~/.config/polybar/system-usb-udev.sh --mount
+click-right = ~/.config/polybar/system-usb-udev.sh --unmount
+
+[module/mpd]
+type = internal/mpd
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
+interval = 1
+format-online = " "
+format-playing = ▶  <label-song>
+format-paused = ❙❙ <label-song>
+# format-playing = ▶  <bar-progress> <label-song>
+# format-paused = ❙❙ <bar-progress> <label-song>
+format-stopped = "mpd: ✓"
+format-stopped-foreground = ${colors.green} 
+label-song = %artist:0:15:…% - %title:0:15:…%
+format-offline = <label-offline>
+label-offline = "mpd: ⚡"
+label-offline-foreground = ${colors.magenta}
+bar-progress-width = 10
+bar-progress-indicator = |
+bar-progress-fill = =
+bar-progress-empty = ―
+bar-progress-indicator-foreground = ${colors.red}
+bar-progress-foreground = ${colors.green} 
+bar-progress-fill-foreground = ${colors.red}
+bar-progress-empty-foreground = ${colors.green}
+
+[module/mpd_s]
+inherit = module/mpd
+format-stopped = ""
+label-offline = ": ⚡"
+
+[module/pass]
+
+type = custom/script
+interval = 1
+exec = ~/.dotfiles/scripts/pass_indicator.sh
+format-foreground = ${colors.green}
+click-left = ~/.dotfiles/scripts/toggle_pass.sh
+
+[module/pass_s]
+
+inherit = module/pass
+exec = ~/.dotfiles/scripts/pass_indicator.sh --small
+
+[module/tomb]
+
+type = custom/script
+interval = 1
+exec = ~/.dotfiles/scripts/tomb_indicator.sh
+format-foreground = ${colors.green}
+click-left = ~/.dotfiles/scripts/toggle_tomb.sh
+click-right = ~/.dotfiles/scripts/toggle_tomb.sh slam
+
+[module/tomb_s]
+
+inherit = module/tomb
+exec = ~/.dotfiles/scripts/tomb_indicator.sh --small
+
+[module/timer]
+
+type = custom/script
+format = <label>
+format-foreground = ${colors.magenta}
+exec = ~/.dotfiles/scripts/polybar-timer.sh tail '%{F#839496}Timer' 5
+tail = true
+click-left = ~/.dotfiles/scripts/polybar-timer.sh new 25 'Work ⚒' 'notify-send "Work done"' ; ~/.dotfiles/scripts/polybar-timer.sh update %pid%
+click-middle = ~/.dotfiles/scripts/polybar-timer.sh cancel ; ~/.dotfiles/scripts/polybar-timer.sh update %pid%
+click-right = ~/.dotfiles/scripts/polybar-timer.sh new 5 'Break ⚑' 'notify-send "Break finished"' ; ~/.dotfiles/scripts/polybar-timer.sh update %pid%
+scroll-up = ~/.dotfiles/scripts/polybar-timer.sh increase 60 || ~/.dotfiles/scripts/polybar-timer.sh new 1 'Timer:' 'notify-send -u critical "Timer expired."' ; ~/.dotfiles/scripts/polybar-timer.sh update %pid%
+scroll-down = ~/.dotfiles/scripts/polybar-timer.sh increase -60 ; ~/.dotfiles/scripts/polybar-timer.sh update %pid%
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+strip-wsnumbers = true
+wrapping-scroll = false
+
+ws-icon-0 = 1:home;⌂
+ws-icon-1 = 2:tmux;◯
+ws-icon-2 = 3:vm;■
+ws-icon-3 = 4:mail;@
+ws-icon-4 = 5:music;♪
+ws-icon-5 = 6:web;◐
+ws-icon-6 = 7:files;❐
+ws-icon-7 = 8:con;⚙
+ws-icon-8 = 9:sig;✉
+ws-icon-default = ♟
+
+padding = 1
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = ${self.padding}
+label-mode-foreground = ${colors.foreground} 
+label-mode-background = ${colors.base02}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon% %name%
+label-focused-background = ${colors.green}
+label-focused-foreground = ${colors.base3}
+label-focused-padding = ${self.padding}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon% %name%
+label-unfocused-padding = ${self.padding}
+label-unfocused-background = ${colors.base02}
+label-unfocused-foreground = ${colors.base01}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon% %name%
+label-visible-background = ${colors.base02}
+label-visible-foreground = ${self.label-focused-foreground}
+label-visible-padding = ${self.padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon% %name%
+label-urgent-background = ${colors.red}
+label-urgent-foreground = ${colors.base3}
+label-urgent-padding = ${self.padding}
+
+; Separator in between workspaces
+label-separator = " "
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected = Wifi ✓
+format-connected-foreground = ${colors.green}
+format-disconnected = Wifi ⚡
+format-disconnected-foreground = ${colors.magenta}
+
+[module/wlan_s]
+inherit = module/wlan
+format-connected = 直
+format-disconnected = 直
+
+[module/tmux_count]
+type = custom/script
+interval = 1
+format = <label>
+format-foreground = ${colors.green}
+exec = ~/.dotfiles/scripts/tmux_count.sh 
+exec-if = tmux ls
+tail = false
+
+[module/vpn]
+type = custom/script
+interval = 1
+format = <label>
+exec = ~/.dotfiles/scripts/vpn_indicator.sh
+tail = false
+
+[module/vpn_s]
+inherit = module/vpn
+exec = ~/.dotfiles/scripts/vpn_indicator.sh --small
+
+[module/date]
+type = internal/date
+interval = 30
+date = "%d.%b"
+date-alt = "%a, %d.%b.%g"
+label = %date%
+label-foreground = ${colors.base2}
+
+[module/time]
+type = internal/date
+interval = 1
+time = %H:%M:%S
+label = %time%
+label-foreground = ${colors.base2}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+interval = 5
+format-volume = <label-volume> <bar-volume>
+format-muted =  <label-muted> <bar-volume>
+label-volume = ♪: %percentage%% 
+label-volume-foreground = ${colors.green}
+label-muted = "♩ mute" 
+label-muted-foreground = ${colors.orange}
+click-right = pavucontrol
+
+bar-volume-width = 11
+bar-volume-foreground = ${colors.green} 
+bar-volume-gradient = false
+bar-volume-indicator = 	|
+bar-volume-indicator-font = 0
+bar-volume-indicator-foreground = ${colors.red}
+bar-volume-fill = ―
+bar-volume-fill-font = 0
+bar-volume-fill-foreground = ${colors.green}
+bar-volume-empty = ―
+bar-volume-empty-foreground = ${colors.green}
+bar-volume-empty-font = 0
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 100
+poll-interval = 1
+
+format-charging = <label-charging>
+label-charging = Akku ⚡ %percentage%%
+format-charging-foreground = ${colors.yellow}
+
+format-discharging = <label-discharging>
+label-discharging = Akku … %percentage%%
+format-discharging-foreground = ${colors.orange}
+
+format-full = <label-full>
+label-full = Akku ✓
+format-full-foreground = ${colors.green}
+
+[module/battery_s]
+inherit = module/battery
+label-charging =  ⚡ %percentage%%
+label-full = 
+label-discharging =  … %percentage%%
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5

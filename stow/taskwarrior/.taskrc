@@ -1,0 +1,14 @@
+# [Created by task 2.5.1 4/20/2021 17:30:16]
+# Taskwarrior program configuration file.
+
+# Files
+data.location=~/.tasks
+dateformat = d.m
+weekstart=Monday
+row.padding = 2
+column.padding = 2
+
+editor=nvim
+include /usr/share/taskwarrior/solarized.theme
+
+news.version=2.6.0

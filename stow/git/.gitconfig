@@ -1,0 +1,9 @@
+[user]
+	name = Oliver Roß
+	email = mail@oliver-ross.at
+[merge]
+	tool = vimdiff
+[alias]
+	graph = log --graph --decorate --oneline --all
+[init]
+	defaultBranch = main

@@ -1,0 +1,99 @@
+snippet unc "Create uncover environment"
+\uncover<$1->{$2}$3
+endsnippet
+
+snippet env "Create Latex environment"
+\begin{$1}
+	$2
+\end{$1}
+endsnippet
+
+snippet item "Create itemize"
+\begin{itemize}
+	\item $1
+\end{itemize}
+endsnippet
+
+snippet ni "next item" A
+
+\item $1
+endsnippet
+
+snippet p "Create phantom environment"
+\phantom{$1} $2
+endsnippet
+
+snippet fo "Insert \footnotesize"
+\footnotesize
+endsnippet
+
+snippet fra "Create Latex beamer frame" b
+\begin{frame}
+\frametitle{${1:NewTitle}}
+	$2
+\end{frame}
+endsnippet
+
+snippet draw "Draw Tikz path" bA
+\draw[$1] ($2) -- ($3);
+$4
+endsnippet
+
+snippet path "Draw annotated Tikz path"
+\draw [$1] ($2) edge [right] node [right] {$3} ($4);
+$5
+endsnippet
+
+snippet node "Tikz node" bA
+\node (${2:label}) at ($3) {${4:text}};
+$5
+endsnippet
+
+snippet ellipse "draw ellipse in tikz"
+\node[ellipse] (${1:label}) at ($2){$3};
+$4
+endsnippet
+
+snippet todo "Todo env" A
+\todo{$1} $2
+endsnippet
+
+snippet it "italic environment"
+\textit{$1} $2
+endsnippet
+
+snippet bf "bold environment"
+\textbf{$1} $2
+endsnippet
+
+snippet ilm "Math"
+\[
+	$1
+\]
+$2
+endsnippet
+
+snippet shift "shift tikz nodes" 
+[xshift=$1cm,yshift=$2cm]
+endsnippet
+
+snippet sec "LAtex section"
+\section{$1}
+$2
+endsnippet
+
+snippet fig "Insert picture"
+\begin{figure}
+	\center
+	\includegraphics[]{img/$1}
+	\caption{$2}
+	\label{fig:$2}
+\end{figure}
+endsnippet
+
+snippet spell "Disable and enable cspell" A
+% cspell: disable
+$1
+% cspell: enable
+$2
+endsnippet

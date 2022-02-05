@@ -1,0 +1,20 @@
+# Package folders for makepkg
+export PKGDEST="/home/oliver/makepkg/packages"
+export SRCDEST="/home/oliver/makepkg/source"
+export SRCPKGDEST="~/makepkg/source_packages"
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Location for password tomb files
+export PASSWORD_STORE_TOMB_FILE="/home/oliver/Oliver/Crypt/pass.tomb"
+export PASSWORD_STORE_TOMB_KEY="/home/oliver/Oliver/Crypt/pass.tomb.key"
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Mullvad GUI
+export MULLVAD_USE_GTK3=yes
+
+# Editor
+export EDITOR=nvim

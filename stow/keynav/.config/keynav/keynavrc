@@ -1,0 +1,11 @@
+# daemonize
+ctrl+semicolon start, grid 3x3
+u cell-select 1x1
+i cell-select 2x1
+o cell-select 3x1
+j cell-select 1x2
+k cell-select 2x2
+l cell-select 3x2
+m cell-select 1x3
+comma cell-select 2x3
+period cell-select 3x3
